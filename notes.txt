@@ -1,0 +1,52 @@
+Difference between HTTP1.1 vs HTTP2
+
+Differentiator	                           	HTTP/1.1	                                 HTTP/2
+
+Invented Year	                           1997	                                        2015
+
+
+Key Features                               It supports connection reuse                 Uses multiplexing, where over a
+                                           i.e. for every TCP connection                single TCP connection resources
+                                           there could be multiple                      to be delivered are interleaved
+                                           requests and responses, and                  and arrive at the client almost at
+                                           pipelining where the client can              the same time. It is done using
+                                           request several resources from               streams which can be prioritized,
+                                           the server at once. However,                 can have dependencies and
+                                           pipelining was hard to                       individual flow control. It also
+                                           implement due to issues such                 provides a feature called server
+                                           as head-of-line blocking and                 push that allows the server to
+                                           was not a feasible solution.                 send data that the client will need
+                                                                                        but has not yet requested.
+
+Authentication Mechanism                   It is relatively secure since it             Security concerns from previous
+                                           uses digest authentication,                  versions will continue to be seen
+                                           NTLM authentication.                         in HTTP/2. However, it is better
+                                                                                        equipped to deal with them due to
+                                                                                        new TLS features like connection
+                                                                                        error of type Inadequate_Security.
+
+                                           It compresses data by itself.                It uses HPACK for data compression  
+                                            
+Status Code                                Introduces a warning header                  Underlying semantics of HTTP
+                                           field to carry additional                    such as headers, status codes
+                                           information about the status of              remains the same.
+                                           a message. Can define 24
+                                           status codes, error reporting is 
+                                           quicker and more efficient.                        
+
+Caching                                    Expands on the caching                       HTTP/2 does not change much in
+                                           support by using additional                  terms of caching. With the server
+                                           headers like cache-control,                  push feature if the client finds the
+                                           conditional headers like If                  resources are already present in
+                                           Match and by using entity tags.              the cache, it can cancel the
+                                                                                        pushed stream.
+
+Web Traffic                                HTTP/1.1 provides faster delivery            HTTP/2 utilizes multiplexing and    
+                                           of web pages and reduces web traffic         server push to effectively
+                                           as compared to HTTP/1.0. However,            reduce the page load time by
+                                           TCP starts slowly and with domain            a greater margin along with being
+                                           sharding (resources can be downloaded        less sensitive to network delays.
+                                           simultaneously by using multiple
+                                           domains),connection reuse                                                                                        
+                                           and pipelining, there is an increased 
+                                           risk of network congestion.                                                       
